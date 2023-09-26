@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Book.Store.Core.Repository\Book.Store.Core.Repository.csproj" />
+    <ProjectReference Include="..\Services.Common\Services.Common.csproj" />
+    <ProjectReference Include="..\Store.Entities\Store.Entities.csproj" />
+    <ProjectReference Include="..\Store.Service\Store.Service.csproj" />
+  </ItemGroup>
+
+</Project>

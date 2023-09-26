@@ -1,0 +1,164 @@
+﻿@*@{
+    int userType = Store.Book.Demo.Utilities.StoreBookSession.UserType;
+}*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<style>
+    .w-cus-100 {
+        min-width: 100px
+    }
+
+    .w-cus-150 {
+        min-width: 150px
+    }
+
+    .w-cus-200 {
+        min-width: 200px
+    }
+
+    .w-cus-250 {
+        min-width: 250px
+    }
+</style>
+
+
+<style>
+    .table-wrap {
+        height: 500px;
+        overflow-y: auto;
+    }
+</style>
+<section class="section">
+    <div class="section-header">
+        <h1>Store Dasboard</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="#">Store</a></div>
+            <div class="breadcrumb-item"><a href="#">Dashbord</a></div>
+            <div class="breadcrumb-item">List</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header" data-bind="with:$root.Filter">
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-action action" data-toggle="modal" id="addBook" onclick="StaticBookPopUp()" data-bind="click:$root.OpenBookModal"> <span class="fa fa-plus"></span>&nbsp;Add Book</button> &nbsp;&nbsp;
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Search By Author" class="form-control form-control-lg" data-bind="value:author">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Search By Genre" class="form-control form-control-lg" data-bind="value:genre">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-action action" data-bind="click:$root.FilterByCategory">Search</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table-wrap">
+                        <table class="table table-striped" id="table-1">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">S.N </th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Genre</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>CreatedDate</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach:$root.Books">
+                                <tr>
+                                    <td data-bind="html:$index()+$root.skipCount()+1"> </td>
+                                    <td data-bind="text:title"> </td>
+                                    <td data-bind="text:author"> </td>
+                                    <td data-bind="text:genre"> </td>
+                                    <td data-bind="text:category"> </td>
+                                    <td data-bind="text:quantity"> </td>
+                                    <td data-bind="text:price"> </td>
+                                    <td data-bind="text:createdDate"> </td>
+                                    <td>
+                                        <a href="#" class="text-primary"><i class="fa fa-edit" data-bind="click:$root.EditBook"></i></a>
+                                        <a href="#" class="text-danger"><i class=" fa fa-trash" data-bind="click:$root.DeleteBook"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button id="previous" class="btn btn-primary text-right" data-bind="click:$root.Previous,enable:$root.skipCount()!=0" disabled>Previous</button>
+                    <button id="next" class="btn btn-primary" data-bind="click:$root.Next,disable:$root.Books().length<10">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<div class="modal fade" id="BookPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Book </h5>
+            </div>
+            <div class="modal-body" data-bind="with:$root.Book">
+                <div class="row col-lg-12" style="margin-left:0px;">
+                    <div class="col-sm-4">
+                        <span class="form-label">Title<i class="text-danger center"> *</i></span>
+                        <input class="form-control" type="text" placeholder="Enter Book Title" data-bind="value:title" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="form-label">Author<i class="text-danger center"> *</i></span>
+                        <input class="form-control" type="text" placeholder="Enter Book Author" data-bind="value:author" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="form-label">Genre<i class="text-danger center"> *</i></span>
+                        <input class="form-control" type="text" placeholder="Enter Book Genre" data-bind="value:genre" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="form-label">Category<i class="text-danger center"> *</i></span>
+                        <input class="form-control" type="text" placeholder="Enter Book Category" data-bind="value:category" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="form-label">Quantity<i class="text-danger center"> *</i></span>
+                        <input class="form-control" type="text" placeholder="Enter Book Quantity" data-bind="value:quantity,mask:'amount'" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="form-label">Price<i class="text-danger center"> *</i></span>
+                        <input class="form-control" type="text" placeholder="Enter Book Price" data-bind="value:price,mask:'amount'" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="form-label">Created Date<i class="text-danger center"> *</i></span>
+                        <input class="form-control" type="date" data-format="yyyy/MM/dd" data-bind="value:createdDate" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bind="click:$root.CloseBookModal">Close</button>
+                <input type="button" class="btn btn-primary" data-bind="click:$root.AddUpdateBook,createUpdateText:$root.ModeOfButton">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/script/bookstore/book.store.model.js"></script>
+<script src="~/script/bookstore/book.store.controller.js"></script>
+@section scripts
+    {
+    <script type="text/javascript">
+        var obj = {};
+        ko.cleanNode(document.getElementById("partial-render"));
+        obj = new BookController();
+        ko.applyBindings(obj, document.getElementById("partial-render"));
+
+        function StaticBookPopUp() {
+            $('#BookPopUp').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+        }
+    </script>
+}

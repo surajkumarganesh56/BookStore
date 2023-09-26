@@ -1,0 +1,58 @@
+﻿@inject Book.Store.Web.Utilities.BookStoreSession BookStoreSession
+@{
+    int userType = BookStoreSession.UserType;
+}
+<div class="main-sidebar">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            @if (userType == 1)
+            {
+                <a href="/StoreManagement/AdminDashboard/Index">Admin Management</a>
+
+            }
+            else
+            {
+                <a href="/StoreManagement/Book/Index">Store Management</a>
+            }
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="/StoreManagement/AdminDashboard/Index">SBM</a>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-header">Store Book Mangement</li>
+            @if (userType == 1)
+            {
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fa fa-location-arrow"></i><span>User Managment</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a class="nav-link" href="#">Add User</a></li>
+                        <li class="active"><a class="nav-link" href="#">Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fa fa-location-arrow"></i><span>User Role</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="">Set Role</a> </li>
+                    </ul>
+                </li>
+            }
+            @if (userType == 2)
+            {
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fa fa-location-arrow"></i><span>Manage Issue</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a class="nav-link" href="/">Issue Books</a></li>
+                        <li class="active"><a class="nav-link" href="/">Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fa fa-location-arrow"></i><span>Manage Request</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a class="nav-link" href="/">Request Books</a></li>
+                        <li><a class="nav-link" href="/">Dashboard</a> </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </aside>
+</div>
